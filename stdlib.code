@@ -1,0 +1,12 @@
+class StdLib
+  sigs:
+
+func:
+  str: [V, str]
+  map: [M, ]
+  seq: [S, seq]
+  bool: [V, bool]
+  num: [V, num]
+  null: [V, 'null']
+
+# vim: ft=coffee:

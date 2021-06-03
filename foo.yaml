@@ -1,0 +1,10 @@
+%yaml 1.3 schema=mynode
+
+foo:
+- ~
+- xxx:
+- 12345
+- 02134
+- -12.345
+- yyy: true
+  zzz: null

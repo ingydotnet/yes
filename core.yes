@@ -1,0 +1,26 @@
+name: core
+
+desc: The YAML core types
+
+show: +
+
++int32:
+  kind: V
+  like: /( 0 | {dash}? {num} )
+  nrng: [-2147483648, 2147483647]
+
++float64:
+  kind: V
+  like: /(: 0 | {dash}? ({num}) {dot}({num}) )
+  # contraints on captures:
+  caps:
+  - nrng: [..., ...]
+  - nrng: [..., ...]
+
+vars:
+  dash: /-
+  dot: /\.
+  dig: /[0-9]
+  d19: /[1-9]
+  num: /{dash}?{d19}{dig}*
+  empty: /

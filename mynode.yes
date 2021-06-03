@@ -1,0 +1,70 @@
+
+
+# This is a YAML Schema for a generic graph with a few specifics.
+# ie Python is generic, and Ansible is specific.
+# Each language generic YAML loader would have a schema like this.
+
+
+# The name of the schema. Generally the same as the file name.
+name: mynode
+
+
+# Description of the schema.
+desc: |
+  This schema defines a generic graph with a few contraints:
+  * Numbers are int32 or float64
+    * This contrains their values
+  * ~ or empty can be used to define a null
+
+
+# The schema(s) we import base types from:
+base:
+- from: schema.yaml.io/core
+  pref: core/
+  take: [ int32, float64 ]
+
+
+# This is the type(s) exposed by this schema. IOW, a consumer of this schema
+# can only import these types from it.
+show: mynode
+
+
+# The entries that follow starting with a `+` are the types defined by this
+# schema.
+
++mynode:
+  type:
+  - +map
+  - +seq
+  - +scalar
+
++map:
+  kind: M
+  pair:
+  - +core/str: +mynode
+  ytag: map
+
++seq:
+  kind: S
+  list: true
+  type: +mynode
+  ytag: seq
+
+
++scalar:
+  kind: V
+  case:
+  - when: +core/int32
+    then:
+      ytag: num
+  - when: +core/float64
+    then:
+      ytag: num
+  - like: /(: null | ~ | {empty} )
+    then:
+      ytag: null
+  - like: /( true | false )
+    then:
+      ytag: bool
+  - else:
+      ytag: str
