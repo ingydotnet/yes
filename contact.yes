@@ -1,0 +1,28 @@
+name: contact
+
+base:
+- from: schema.yaml.io/core
+  take: str
+- from: schema.yaml.io/location
+  take: +
+  pref: loc/
+
+show: contact
+
++contact:
+  pair:
+  - "name": +name
+  - "phone: +phone
+  - "address":
+    case:
+    - kind: V
+      type: +str
+      ytag: lines
+    - kind: S
+      list:
+      - +loc/street
+      - +loc/city
+      - +loc/state
+      - +loc/postal
+
++phone: /{num}({dash}{num}+
